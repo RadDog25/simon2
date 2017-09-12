@@ -1,19 +1,13 @@
 <script>
 export default {
   name: 'quarter',
-  data () {
-    return {
-      isDark: false
-    }
-  },
+  props: [
+    'color',
+    'isActive'
+  ],
   methods: {
-    darken () {
-      if (!this.isDark) {
-        this.isDark = true
-        setTimeout(() => {
-          this.isDark = false
-        }, 400)
-      }
+    setAsActive () {
+      this.$emit('setAsActive', this.color)
     }
   }
 }
@@ -21,8 +15,8 @@ export default {
 
 <template>
   <div class="quarter layout-layer-container"
-  @click="darken">
-    <div  v-bind:class="{ 'dark-layer': isDark }" class="layout-layer clear-layer"></div>
+  @click="setAsActive">
+    <div  v-bind:class="{ 'dark-layer': isActive }" class="layout-layer clear-layer"></div>
   </div>
 </template>
 
