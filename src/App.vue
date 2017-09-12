@@ -1,30 +1,24 @@
 <script>
-import Hello from './components/Hello'
+import Shell from './components/Shell'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    Shell
   }
 }
 </script>
 
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <shell></shell>
   </div>
 </template>
 
-<style src="./global.scss" lang="scss"></style>
+<style src="./style.scss" lang="scss"></style>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
