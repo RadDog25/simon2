@@ -1,0 +1,35 @@
+body * {
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.clear-layer {
+    border-radius: inherit;
+    background-color: transparent;
+    opacity: 0;
+    transition: opacity 400ms linear,
+                background-color 400ms linear;
+}
+
+.dark-layer {
+    background-color: black;
+    opacity: 0.3;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.absolute-center {
+    position: absolute;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
+}

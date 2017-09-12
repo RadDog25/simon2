@@ -3,24 +3,33 @@ export default {
   name: 'quarter',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      isDark: false
+    }
+  },
+  methods: {
+    darken () {
+      if (!this.isDark) {
+        this.isDark = true
+        setTimeout(() => {
+          this.isDark = false
+        }, 400)
+      }
     }
   }
 }
 </script>
 
 <template>
-  <div class="quarter"></div>
+  <div class="quarter layout-layer-container"
+  @click="darken">
+    <div  v-bind:class="{ 'dark-layer': isDark }" class="layout-layer clear-layer"></div>
+  </div>
 </template>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
-.quarter {
-  width: 100px;
-  height: 100px;
-  background: pink;
-}
+
 
 </style>
