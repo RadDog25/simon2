@@ -4,29 +4,74 @@ $border-width: 20px;
     float: left;
     width: 50%;
     padding-top: calc(50% - 30px);
-    border: $border-width solid black;
+    border: $border-width solid $light-black;
+    transition: all 100ms ease-out;
+    cursor: pointer;
+    .radius {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background-color: $light-black;
+    }
+
     &:nth-of-type(1) {
-        background-color: green;
-        border-radius: 100% 0 0 0;
+        background-color: #007E33;
+        &.active {
+            background-color: #00C851;
+            transform: translate(0.5%, 0.5%);
+        }
+        border-radius: 100% 5% 0 5%;
         border-right-width: $border-width / 2;
         border-bottom-width: $border-width / 2;
+        .radius {
+            right: 0;
+            bottom: 0;
+            border-radius: 100% 0 0 0;
+        }
     }
     &:nth-of-type(2) {
-        background-color: red;
-        border-radius: 0 100% 0 0;
+        background-color: #CC0000;
+        &.active {
+            background-color: #ff4444;
+            transform: translate(-0.5%, 0.5%);
+        }
+        border-radius: 5% 100% 5% 0;
         border-left-width: $border-width / 2;
         border-bottom-width: $border-width / 2;
+        .radius {
+            left: 0;
+            bottom: 0;
+            border-radius: 0 100% 0 0;
+        }
     }
     &:nth-of-type(3) {
-        background-color: yellow;
-        border-radius: 0 0 0 100%;
+        background-color: #ffd740;
+        &.active {
+            background-color: #ffff00;
+            transform: translate(0.5%, -0.5%);
+        }
+        border-radius: 5% 0 5% 100%;
         border-right-width: $border-width / 2;
         border-top-width: $border-width / 2;
+        .radius {
+            right: 0;
+            top: 0;
+            border-radius: 0 0 0 100%;
+        }
     }
     &:nth-of-type(4) {
-        background-color: blue;
-        border-radius: 0 0 100% 0;
+        background-color: #0d47a1;
+        &.active {
+            background-color: #4285F4;
+            transform: translate(-0.5%, -0.5%);
+        }
+        border-radius: 0 5% 100% 5%;
         border-left-width: $border-width / 2;
         border-top-width: $border-width / 2;
+        .radius {
+            left: 0;
+            top: 0;
+            border-radius: 0 0 100% 0;
+        }
     }
 }

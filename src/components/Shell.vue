@@ -7,6 +7,12 @@ export default {
   props: [
     'quartersActiveState'
   ],
+  computed: {
+    somethingIsActive () {
+      return Object.values(this.quartersActiveState)
+            .some(isActive => isActive)
+    }
+  },
   methods: {
     setAsActive (color) {
       this.$emit('setAsActive', color)
@@ -43,17 +49,12 @@ export default {
       </quarter>
 
 
-      <center></center>
+      <center :somethingIsActive="somethingIsActive"></center>
   </div>
 </template>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-
-.shell {
-  max-width: 600px;
-  margin: 0 auto;
-}
 
 </style>

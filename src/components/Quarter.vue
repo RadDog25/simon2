@@ -14,9 +14,9 @@ export default {
 </script>
 
 <template>
-  <div class="quarter layout-layer-container"
+  <div :class="{ 'active': isActive }" class="quarter layout-layer-container"
   @click="setAsActive">
-    <div  v-bind:class="{ 'dark-layer': isActive }" class="layout-layer clear-layer"></div>
+    <div class="radius"></div>
   </div>
 </template>
 
