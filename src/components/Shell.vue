@@ -5,6 +5,10 @@ import Center from './Center'
 export default {
   name: 'shell',
   props: [
+    'isGameStarted',
+    'level',
+    'isPowerOn',
+    'isStrictMode',
     'quartersActiveState'
   ],
   computed: {
@@ -16,6 +20,15 @@ export default {
   methods: {
     setAsActive (color) {
       this.$emit('setAsActive', color)
+    },
+    toggleStrictMode () {
+      this.$emit('toggleStrictMode')
+    },
+    togglePower () {
+      this.$emit('togglePower')
+    },
+    startGame () {
+      this.$emit('startGame')
     }
   },
   components: {
@@ -49,7 +62,15 @@ export default {
       </quarter>
 
 
-      <center :somethingIsActive="somethingIsActive"></center>
+      <center @startGame="startGame"
+      @toggleStrictMode="toggleStrictMode"
+      @togglePower="togglePower"
+      :isGameStarted="isGameStarted"
+      :level="level"
+      :somethingIsActive="somethingIsActive"
+      :isPowerOn="isPowerOn"
+      :isStrictMode="isStrictMode">
+      </center>
   </div>
 </template>
 

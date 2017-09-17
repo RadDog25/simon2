@@ -15,6 +15,10 @@ export default {
   },
   data () {
     return {
+      isPowerOn: false,
+      isGameStarted: false,
+      isStrictMode: false,
+      level: 1,
       quartersActiveState: {
         green: false,
         red: false,
@@ -24,12 +28,36 @@ export default {
     }
   },
   methods: {
+    resetGame () {
+      this.isGameStarted = false
+      this.level = 1
+      this.quartersActiveState = {
+        green: false,
+        red: false,
+        yellow: false,
+        blue: false
+      }
+    },
+    startGame () {
+      this.resetGame()
+      this.isGameStarted = true
+    },
     setAsActive (color) {
       sounds[color].play()
       this.quartersActiveState[color] = true
       setTimeout(() => {
         this.quartersActiveState[color] = false
       }, 400)
+    },
+    toggleStrictMode () {
+      if (this.isPowerOn) {
+        this.isStrictMode = !this.isStrictMode
+      }
+    },
+    togglePower () {
+      this.isPowerOn = !this.isPowerOn
+      this.resetGame()
+      this.isStrictMode = false
     }
   }
 }
@@ -37,8 +65,15 @@ export default {
 
 <template>
   <div id="app">
-    <shell @setAsActive="setAsActive"
-    :quartersActiveState="quartersActiveState">
+    <shell @startGame='startGame'
+    @togglePower="togglePower"
+    @toggleStrictMode="toggleStrictMode"
+    @setAsActive="setAsActive"
+    :level="level"
+    :isGameStarted="isGameStarted"
+    :isPowerOn="isPowerOn"
+    :quartersActiveState="quartersActiveState"
+    :isStrictMode="isStrictMode">
     </shell>
   </div>
 </template>
