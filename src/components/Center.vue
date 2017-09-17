@@ -1,55 +1,22 @@
 <script>
-import { doThingsInSequence } from '../helpers.js'
 
 export default {
   name: 'center',
   props: [
-    'isGameStarted',
-    'level',
     'isPowerOn',
     'somethingIsActive',
-    'isStrictMode'
+    'isStrictMode',
+    'displayString'
   ],
-  data () {
-    return {
-      displayIsOverridden: false,
-      displayOverrideString: ''
-    }
-  },
   methods: {
-    startGame () {
-      doThingsInSequence([
-        { func: () => { this.displayIsOverridden = true }, delay: 0 },
-        { func: () => { this.displayOverrideString = '' }, delay: 200 },
-        { func: () => { this.displayOverrideString = '--' }, delay: 200 },
-        { func: () => { this.displayOverrideString = '' }, delay: 200 },
-        { func: () => { this.displayOverrideString = '--' }, delay: 200 },
-        { func: () => { this.displayOverrideString = '' }, delay: 200 },
-        { func: () => { this.displayOverrideString = '--' }, delay: 200 },
-        { func: () => { this.displayIsOverridden = false }, delay: 400 },
-        { func: () => { this.displayOverrideString = '' }, delay: 400 },
-        { func: () => { this.$emit('startGame') }, delay: 0 }
-      ])
-    },
     toggleStrictMode () {
       this.$emit('toggleStrictMode')
     },
     togglePower () {
       this.$emit('togglePower')
-    }
-  },
-  computed: {
-    displayString () {
-      if (this.isPowerOn) {
-        if (this.displayIsOverridden) {
-          return this.displayOverrideString
-        }
-        if (this.isGameStarted) {
-          return this.level
-        }
-        return '--'
-      }
-      return ''
+    },
+    startGame () {
+      this.$emit('startGame')
     }
   }
 }
@@ -110,11 +77,3 @@ export default {
     </div><!-- close interface -->
   </div><!-- close center -->
 </template>
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-
-
-
-</style>
