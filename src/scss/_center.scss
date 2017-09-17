@@ -1,6 +1,113 @@
+$button-diameter: 32px;
+
 .shell .center {
-    width: 47%;
-    height: 47%;
-    background-color: $light-black;
+    width: 45%;
+    height: 45%;
     border-radius: 50%;
+    .interface {
+        height: 100%;
+        border-radius: 50%;
+        .button-container {
+            text-align: center;
+            .button-base {
+                display: inline-block;
+                padding: 4px;
+                border-radius: 50%;
+                background-color: $dark-gray;
+                margin: 0 auto 4px;
+                .button {
+                    width: $button-diameter;
+                    height: $button-diameter;
+                    border-radius: 50%;
+                    transform: translateY(0);
+                    transition: transform 100ms ease-out;
+                    cursor: pointer;
+                    &:active {
+                        transform: translateY(2px);
+                    }
+                }
+            }
+        }
+
+        .top, .middle, .bottom {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .top {
+            justify-content: center;
+            top: 5%;
+            font-size: 42px;
+        }
+
+        .middle {
+            justify-content: space-around;
+            .display {
+                width: 25%;
+                height: 46px;
+                color: $light-red;
+                background-color: #330000;
+                border: 3px solid black;
+                font-size: 24px;
+                padding: 6px 20px;
+            }
+
+            .start-button-container {
+                .button {
+                    background-color: $dark-red;
+                }
+            }
+
+            .strict-button-container {
+                position: relative;
+                .button {
+                    background-color: $dark-yellow;
+                }
+                .light {
+                    position: absolute;
+                    background-color: $dark-red;
+                    width: 12px;
+                    height: 12px;
+                    left: 50%;
+                    transform: translate(-50%, -100%);
+                    top: -6px;
+                    border-radius: 50%;
+                    border: 2px solid $dark-gray;
+                    transition: border-width 100ms linear,
+                                background-color 100ms linear;
+                    &.active {
+                        border-width: 0;
+                        background-color: $light-red;
+                    }
+                }
+            }
+        }
+
+        .bottom {
+            justify-content: center;
+            bottom: 15%;
+            .power-container {
+                margin: 0 6px 0;
+                width: 60px;
+                height: 32px;
+                padding: 3px;
+                background-color: $dark-gray;
+                border-radius: 6px;
+                cursor: pointer;
+                .power {
+                    height: 100%;
+                    width: 28px;
+                    background-color: $dark-green;
+                    border-radius: inherit;
+                    transform: translateX(0);
+                    transition: transform 100ms linear;
+                    &.active {
+                        transform: translateX(28px);
+                    }
+                }
+            }
+        }
+    }
 }

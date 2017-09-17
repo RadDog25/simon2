@@ -3,74 +3,114 @@ $border-width: 20px;
 .quarter {
     float: left;
     width: 50%;
-    padding-top: calc(50% - 30px);
+    padding-top: calc(50% - 1.5 *  #{$border-width} );
     border: $border-width solid $light-black;
+    @include mobile {
+        border-width: $border-width / 2;
+        padding-top: calc(50% - 0.75 *  #{$border-width} );
+    }
     transition: all 100ms ease-out;
     cursor: pointer;
     .radius {
         position: absolute;
         width: 50%;
         height: 50%;
+        @include mobile {
+            width: 66%;
+            height: 66%;
+        }
         background-color: $light-black;
     }
 
     &:nth-of-type(1) {
-        background-color: #007E33;
+        background-color: $dark-green;
         &.active {
-            background-color: #00C851;
+            background-color: $light-green;
             transform: translate(0.5%, 0.5%);
         }
         border-radius: 100% 5% 0 5%;
         border-right-width: $border-width / 2;
         border-bottom-width: $border-width / 2;
+        @include mobile {
+            border-right-width: $border-width / 4;
+            border-bottom-width: $border-width / 4;
+        }
         .radius {
-            right: 0;
-            bottom: 0;
+            right: -$border-width / 2;
+            bottom: -$border-width / 2;
+            @include mobile {
+                right: -$border-width / 4;
+                bottom: -$border-width / 4;
+            }
             border-radius: 100% 0 0 0;
         }
     }
     &:nth-of-type(2) {
-        background-color: #CC0000;
+        background-color: $dark-red;
         &.active {
-            background-color: #ff4444;
+            background-color: $light-red;
             transform: translate(-0.5%, 0.5%);
         }
         border-radius: 5% 100% 5% 0;
         border-left-width: $border-width / 2;
         border-bottom-width: $border-width / 2;
+        @include mobile {
+            border-left-width: $border-width / 4;
+            border-bottom-width: $border-width / 4;
+        }
         .radius {
-            left: 0;
-            bottom: 0;
+            left: -$border-width / 2;
+            bottom: -$border-width / 2;
+            @include mobile {
+                left: -$border-width / 4;
+                bottom: -$border-width / 4;
+            }
             border-radius: 0 100% 0 0;
         }
     }
     &:nth-of-type(3) {
-        background-color: #ffd740;
+        background-color: $dark-yellow;
         &.active {
-            background-color: #ffff00;
+            background-color: $light-yellow;
             transform: translate(0.5%, -0.5%);
         }
         border-radius: 5% 0 5% 100%;
         border-right-width: $border-width / 2;
         border-top-width: $border-width / 2;
+        @include mobile {
+            border-right-width: $border-width / 4;
+            border-top-width: $border-width / 4;
+        }
         .radius {
-            right: 0;
-            top: 0;
+            right: -$border-width / 2;
+            top: -$border-width / 2;
+            @include mobile {
+                right: -$border-width / 4;
+                top: -$border-width / 4;
+            }
             border-radius: 0 0 0 100%;
         }
     }
     &:nth-of-type(4) {
-        background-color: #0d47a1;
+        background-color: $dark-blue;
         &.active {
-            background-color: #4285F4;
+            background-color: $light-blue;
             transform: translate(-0.5%, -0.5%);
         }
         border-radius: 0 5% 100% 5%;
         border-left-width: $border-width / 2;
         border-top-width: $border-width / 2;
+        @include mobile {
+            border-left-width: $border-width / 4;
+            border-top-width: $border-width / 4;
+        }
         .radius {
-            left: 0;
-            top: 0;
+            left: -$border-width / 2;
+            top: -$border-width / 2;
+            @include mobile {
+                left: -$border-width / 4;
+                top: -$border-width / 4;
+            }
             border-radius: 0 0 100% 0;
         }
     }
