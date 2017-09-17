@@ -1,5 +1,8 @@
 <script>
 import Shell from './components/Shell'
+import { doThingsInSequence, clearTimeouts, getRandomStep } from './helpers.js'
+
+window.pendingTimeouts = []
 
 const sounds = {
   green: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
@@ -18,7 +21,10 @@ export default {
       isPowerOn: false,
       isGameStarted: false,
       isStrictMode: false,
-      level: 1,
+      sequence: [ getRandomStep() ],
+      isShowingSequence: false,
+      isPlayersTurn: false,
+      playersSequence: [],
       quartersActiveState: {
         green: false,
         red: false,
@@ -29,8 +35,12 @@ export default {
   },
   methods: {
     resetGame () {
+      clearTimeouts()
       this.isGameStarted = false
-      this.level = 1
+      this.sequence = [ getRandomStep() ]
+      this.isShowingSequence = false
+      this.isPlayersTurn = false
+      this.playersSequence = []
       this.quartersActiveState = {
         green: false,
         red: false,
@@ -38,16 +48,52 @@ export default {
         blue: false
       }
     },
-    startGame () {
-      this.resetGame()
-      this.isGameStarted = true
+    makeQuarterActive (color) {
+      if (this.isGameStarted) {
+        sounds[color].play()
+        this.quartersActiveState[color] = true
+        doThingsInSequence([{
+          func: () => { this.quartersActiveState[color] = false }, delay: 400
+        }])
+      }
     },
-    setAsActive (color) {
-      sounds[color].play()
-      this.quartersActiveState[color] = true
-      setTimeout(() => {
-        this.quartersActiveState[color] = false
-      }, 400)
+    showTheSequence () {
+      const stepsToDoInSequence = this.sequence.map(color => {
+        return {
+          func: () => { this.makeQuarterActive(color) }, delay: 700
+        }
+      })
+
+      doThingsInSequence([{
+        func: () => { this.isShowingSequence = true }, delay: 0
+      }, ...stepsToDoInSequence, {
+        func: () => { this.isShowingSequence = false }, delay: 1000
+      }, {
+        func: () => { this.isPlayersTurn = true }, delay: 0
+      }])
+    },
+    startGame () {
+      if (this.isPowerOn) {
+        this.resetGame()
+        this.isGameStarted = true
+        this.showTheSequence()
+      }
+    },
+    handleQuarterClick (color) {
+      if (this.isPlayersTurn) {
+        this.makeQuarterActive(color)
+        this.playersSequence = [...this.playersSequence, color]
+        const playersSequenceLength = this.playersSequence.length
+        const sequenceIsCorrect = this.sequence.slice(0, playersSequenceLength)
+          .every((color, index) => {
+            return color === this.playersSequence[index]
+          })
+        if (sequenceIsCorrect) {
+          console.log('correct')
+        } else {
+          console.log('incorrect')
+        }
+      }
     },
     toggleStrictMode () {
       if (this.isPowerOn) {
@@ -59,6 +105,12 @@ export default {
       this.resetGame()
       this.isStrictMode = false
     }
+  },
+  computed: {
+    level: function () {
+      const level = String(this.sequence.length)
+      return level.padStart(2, '0')
+    }
   }
 }
 </script>
@@ -68,7 +120,7 @@ export default {
     <shell @startGame='startGame'
     @togglePower="togglePower"
     @toggleStrictMode="toggleStrictMode"
-    @setAsActive="setAsActive"
+    @handleQuarterClick="handleQuarterClick"
     :level="level"
     :isGameStarted="isGameStarted"
     :isPowerOn="isPowerOn"

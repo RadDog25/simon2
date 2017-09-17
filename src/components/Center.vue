@@ -17,7 +17,7 @@ export default {
     }
   },
   methods: {
-    gameHasReset () {
+    startGame () {
       doThingsInSequence([
         { func: () => { this.displayIsOverridden = true }, delay: 0 },
         { func: () => { this.displayOverrideString = '' }, delay: 200 },
@@ -26,7 +26,9 @@ export default {
         { func: () => { this.displayOverrideString = '--' }, delay: 200 },
         { func: () => { this.displayOverrideString = '' }, delay: 200 },
         { func: () => { this.displayOverrideString = '--' }, delay: 200 },
-        { func: () => { this.displayIsOverridden = false }, delay: 400 }
+        { func: () => { this.displayIsOverridden = false }, delay: 400 },
+        { func: () => { this.displayOverrideString = '' }, delay: 400 },
+        { func: () => { this.$emit('startGame') }, delay: 0 }
       ])
     },
     toggleStrictMode () {
@@ -34,19 +36,15 @@ export default {
     },
     togglePower () {
       this.$emit('togglePower')
-    },
-    startGame () {
-      this.$emit('startGame')
-      this.gameHasReset()
     }
   },
   computed: {
     displayString () {
       if (this.isPowerOn) {
+        if (this.displayIsOverridden) {
+          return this.displayOverrideString
+        }
         if (this.isGameStarted) {
-          if (this.displayIsOverridden) {
-            return this.displayOverrideString
-          }
           return this.level
         }
         return '--'

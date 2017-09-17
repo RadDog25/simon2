@@ -6,8 +6,8 @@ export default {
     'isActive'
   ],
   methods: {
-    setAsActive () {
-      this.$emit('setAsActive', this.color)
+    handleQuarterClick () {
+      this.$emit('handleQuarterClick', this.color)
     }
   }
 }
@@ -15,7 +15,7 @@ export default {
 
 <template>
   <div :class="{ 'active': isActive }" class="quarter layout-layer-container"
-  @click="setAsActive">
+  @click="handleQuarterClick">
     <div class="radius"></div>
   </div>
 </template>

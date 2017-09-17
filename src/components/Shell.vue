@@ -18,8 +18,8 @@ export default {
     }
   },
   methods: {
-    setAsActive (color) {
-      this.$emit('setAsActive', color)
+    handleQuarterClick (color) {
+      this.$emit('handleQuarterClick', color)
     },
     toggleStrictMode () {
       this.$emit('toggleStrictMode')
@@ -43,22 +43,22 @@ export default {
 
       <quarter color="green"
       :isActive="quartersActiveState.green"
-      @setAsActive="setAsActive">
+      @handleQuarterClick="handleQuarterClick">
       </quarter>
 
       <quarter color="red"
       :isActive="quartersActiveState.red"
-      @setAsActive="setAsActive">
+      @handleQuarterClick="handleQuarterClick">
       </quarter>
 
       <quarter color="yellow"
       :isActive="quartersActiveState.yellow"
-      @setAsActive="setAsActive">
+      @handleQuarterClick="handleQuarterClick">
       </quarter>
 
       <quarter color="blue"
       :isActive="quartersActiveState.blue"
-      @setAsActive="setAsActive">
+      @handleQuarterClick="handleQuarterClick">
       </quarter>
 
 
