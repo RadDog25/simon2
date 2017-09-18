@@ -12,6 +12,13 @@ const sounds = {
   blue: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
 }
 
+function makeErrorSound () {
+  doThingsInSequence([
+    { func: () => { sounds.red.play() }, delay: 0 },
+    { func: () => { sounds.yellow.play() }, delay: 200 }
+  ])
+}
+
 export default {
   name: 'app',
   components: {
@@ -65,9 +72,11 @@ export default {
         blue: false
       }
     },
-    makeQuarterActive (color) {
+    makeQuarterActive (color, shouldPlaySound = true) {
       if (this.isGameStarted) {
-        sounds[color].play()
+        if (shouldPlaySound) {
+          sounds[color].play()
+        }
         this.quartersActiveState[color] = true
         doThingsInSequence([
           { func: () => { this.quartersActiveState[color] = false }, delay: 400 }
@@ -105,11 +114,9 @@ export default {
       if (this.isPlayersTurn) {
         const stepIsCorrect = this.sequence[this.stepPlayerIsOn] === color
         const stepIsTheLastOne = this.stepPlayerIsOn === this.sequence.length - 1
-        this.makeQuarterActive(color)
         if (stepIsCorrect) {
-          console.log('correct')
+          this.makeQuarterActive(color)
           if (stepIsTheLastOne) {
-            console.log('last step')
             this.sequence = [...this.sequence, getRandomStep()]
             this.stepPlayerIsOn = 0
             doThingsInSequence([
@@ -119,12 +126,17 @@ export default {
             this.stepPlayerIsOn += 1
           }
         } else {
+          this.makeQuarterActive(color, false)
+          makeErrorSound()
           this.stepPlayerIsOn = 0
           this.isPlayersTurn = false
           const showTheSequenceAgain = { func: () => { this.showTheSequence() }, delay: 0 }
+          const restartTheGame = { func: () => { this.startGame() }, delay: 0 }
+          const thingToDoAfterFlash = this.isStrictMode
+          ? restartTheGame : showTheSequenceAgain
           doThingsInSequence([
             ...this.getFlashingDisplayThings('!!!'),
-            showTheSequenceAgain
+            thingToDoAfterFlash
           ])
         }
       }
@@ -155,6 +167,9 @@ export default {
           return this.displayOverrideString
         }
         if (this.isGameStarted) {
+          if (this.isPlayersTurn) {
+            return this.level + ':'
+          }
           return this.level
         }
         return '--'
