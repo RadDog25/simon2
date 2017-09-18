@@ -1,6 +1,13 @@
 $button-diameter: 32px;
+@import url('https://fonts.googleapis.com/css?family=Oswald|VT323');
 
 #app .center {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    @include mobile-small {
+        font-size: 12px;
+    }
     width: 45%;
     height: 45%;
     border-radius: 50%;
@@ -14,10 +21,14 @@ $button-diameter: 32px;
                 padding: 4px;
                 border-radius: 50%;
                 background-color: $dark-gray;
-                margin: 0 auto 4px;
+                margin: 0 auto;
                 .button {
                     width: $button-diameter;
                     height: $button-diameter;
+                    @include mobile-small {
+                        width: calc( #{$button-diameter} * (2/3) );
+                        height: calc( #{$button-diameter} * (2/3) );
+                    }
                     border-radius: 50%;
                     transform: translateY(0);
                     transition: transform 100ms ease-out;
@@ -38,20 +49,38 @@ $button-diameter: 32px;
 
         .top {
             justify-content: center;
-            top: 5%;
-            font-size: 42px;
+            margin: 0;
+            top: 8%;
+            font-size: 48px;
+            @include mobile {
+                top: 0;
+                font-size: 32px;
+            }
+            @include mobile-small {
+                font-size: 24px;
+            }
         }
 
         .middle {
             justify-content: space-around;
             .display {
-                width: 25%;
-                height: 46px;
+                text-align: left;
+                margin-left: 5%;
+                width: 60px;
+                height: 44px;
                 color: $light-red;
                 background-color: #330000;
                 border: 3px solid black;
-                font-size: 24px;
-                padding: 6px 20px;
+                font-size: 32px;
+                padding: 2px 0 2px 8px;
+                font-family: 'VT323', monospace;
+                @include mobile {
+                    margin-left: 0;
+                    font-size: 24px;
+                    width: 42px;
+                    height: 36px;
+                    padding-left: 6px;
+                }
             }
 
             .start-button-container {
@@ -73,6 +102,9 @@ $button-diameter: 32px;
                     left: 50%;
                     transform: translate(-50%, -100%);
                     top: -6px;
+                    @include mobile {
+                        top: -3px;
+                    }
                     border-radius: 50%;
                     border: 2px solid $dark-gray;
                     transition: border-width 100ms linear,
@@ -88,6 +120,12 @@ $button-diameter: 32px;
         .bottom {
             justify-content: center;
             bottom: 15%;
+            @include mobile {
+                bottom: 5%;
+            }
+            @include mobile-small {
+                bottom: 0;
+            }
             .power-container {
                 margin: 0 6px 0;
                 width: 60px;
@@ -95,11 +133,17 @@ $button-diameter: 32px;
                 padding: 3px;
                 background-color: $dark-gray;
                 border-radius: 6px;
+                @include mobile {
+                    height: 24px;
+                }
+                @include mobile-small {
+                    height: 20px;
+                }
                 cursor: pointer;
                 .power {
                     height: 100%;
                     width: 28px;
-                    background-color: $dark-green;
+                    background-color: white;
                     border-radius: inherit;
                     transform: translateX(0);
                     transition: transform 100ms linear;
