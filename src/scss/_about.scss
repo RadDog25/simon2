@@ -1,0 +1,23 @@
+.logo {
+    width: 48px;
+    @include mobile {
+        width: 36px;
+    }
+}
+
+.about {
+    color: $light-black;
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Source Code Pro', monospace;
+    @include mobile {
+        font-size: 15px;
+    }
+    @include mobile-small {
+        font-size: 12px;
+    }
+}
+
+.link {
+    color: $dark-blue;
+}

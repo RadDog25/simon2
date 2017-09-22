@@ -181,9 +181,8 @@ export default {
 </script>
 
 <template>
-  <div id="app"
-  class="clearfix layout-layer-container">
-
+  <div class="container">
+    <div id="app" class="clearfix layout-layer-container">
       <quarter color="green"
       :isActive="quartersActiveState.green"
       @handleQuarterClick="handleQuarterClick">
@@ -213,7 +212,20 @@ export default {
       :isPowerOn="isPowerOn"
       :isStrictMode="isStrictMode">
       </center>
-  </div>
+    </div><!-- end app -->
+
+    <div class="about">
+
+      <img class="logo"
+      src="./assets/github.svg">
+      
+      <a href="https://github.com/RadDog25/simon2"
+      class="link">
+        https://github.com/RadDog25/simon2
+      </a>
+
+    </div><!-- end about -->
+  </div><!-- end container -->
 </template>
 
 <style src="./style.scss" lang="scss"></style>
