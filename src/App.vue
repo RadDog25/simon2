@@ -19,6 +19,8 @@ function makeErrorSound () {
   ])
 }
 
+const sequencesToWin = 20
+
 export default {
   name: 'app',
   components: {
@@ -117,11 +119,20 @@ export default {
         if (stepIsCorrect) {
           this.makeQuarterActive(color)
           if (stepIsTheLastOne) {
-            this.sequence = [...this.sequence, getRandomStep()]
-            this.stepPlayerIsOn = 0
-            doThingsInSequence([
-              { func: () => { this.showTheSequence() }, delay: 1000 }
-            ])
+            if (this.sequence.length >= sequencesToWin) {
+              this.resetGame()
+              doThingsInSequence([
+                ...this.getFlashingDisplayThings(':D'),
+                ...this.getFlashingDisplayThings('XD'),
+                { func: () => { this.startGame() }, delay: 0 }
+              ])
+            } else {
+              this.sequence = [...this.sequence, getRandomStep()]
+              this.stepPlayerIsOn = 0
+              doThingsInSequence([
+                { func: () => { this.showTheSequence() }, delay: 1000 }
+              ])
+            }
           } else {
             this.stepPlayerIsOn += 1
           }
@@ -132,12 +143,17 @@ export default {
           this.isPlayersTurn = false
           const showTheSequenceAgain = { func: () => { this.showTheSequence() }, delay: 0 }
           const restartTheGame = { func: () => { this.startGame() }, delay: 0 }
-          const thingToDoAfterFlash = this.isStrictMode
-          ? restartTheGame : showTheSequenceAgain
-          doThingsInSequence([
-            ...this.getFlashingDisplayThings('!!!'),
-            thingToDoAfterFlash
-          ])
+          if (this.isStrictMode) {
+            doThingsInSequence([
+              ...this.getFlashingDisplayThings('X['),
+              restartTheGame
+            ])
+          } else {
+            doThingsInSequence([
+              ...this.getFlashingDisplayThings(':['),
+              showTheSequenceAgain
+            ])
+          }
         }
       }
     },
